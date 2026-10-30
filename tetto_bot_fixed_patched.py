@@ -25,7 +25,7 @@ from aiogram.types import (
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
 # --- БЛЯДСКИЕ НАСТРОЙКИ (ТВОИ ДАННЫЕ) ---
-TOKEN = "8904950437:AAHC3YqdaVfa6h_eSD3Y1QC9O8R17Lq7q_M"
+BOT_TOKEN = 
 CHANNEL_ID = -1002130614493
 ADMIN_ID = 6936783270
 VEXX_ID = 8021778299 
