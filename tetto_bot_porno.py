@@ -28,25 +28,16 @@ from aiogram.types import (
 
 # =============================================================================
 # НАСТРОЙКИ
-#
-# На хостинге обязательно задай переменные окружения:
-# BOT_TOKEN или TOKEN
-# CHANNEL_ID
-# ADMIN_ID
-# VEXX_ID
 # =============================================================================
-TOKEN = (os.getenv("BOT_TOKEN") or os.getenv("TOKEN") or "").strip()
-if not TOKEN:
-    raise RuntimeError("Не задан токен. Укажи переменную окружения BOT_TOKEN на хостинге.")
+# ВСТАВЬ СВОЙ ТОКЕН СЮДА
+TOKEN = os.getenv("BOT_TOKEN") or os.getenv("TOKEN") or "8904950437:AAHUQcrqpC7hvMOhFWuu6he8mvLSfBbCTn8"
 
-channel_raw = os.getenv("CHANNEL_ID", "-1002130614493")
-try:
-    CHANNEL_ID = int(channel_raw)
-except ValueError:
-    CHANNEL_ID = channel_raw
+if TOKEN == "1234567890:FAKE_REPLACE_ME":
+    raise RuntimeError("Замени токен в коде: строка TOKEN = ...")
 
-ADMIN_ID = int(os.getenv("ADMIN_ID", "6936783270"))
-VEXX_ID = int(os.getenv("VEXX_ID", "8021778299"))
+CHANNEL_ID = -1002130614493
+ADMIN_ID = 6936783270
+VEXX_ID = 8021778299
 ALL_ADMINS = {ADMIN_ID, VEXX_ID}
 
 TZ_MSK = ZoneInfo("Europe/Moscow")
@@ -74,7 +65,7 @@ logger = logging.getLogger("TETO_BOT")
 
 
 # =============================================================================
-# БАЗОВЫЕ УТИЛИТЫ
+# УТИЛИТЫ
 # =============================================================================
 def esc(text):
     return html.escape(text or "", quote=False)
@@ -341,7 +332,7 @@ def check_flood(uid):
 
 
 # =============================================================================
-# КЛАВИАТУРЫ И ОФОРМЛЕНИЕ
+# КЛАВИАТУРЫ
 # =============================================================================
 def get_reply_kb(paused):
     return ReplyKeyboardMarkup(
@@ -509,7 +500,7 @@ def get_blacklist_view():
 
 
 # =============================================================================
-# BOT / DISPATCHER
+# BOT
 # =============================================================================
 bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
 dp = Dispatcher(storage=MemoryStorage())
@@ -534,7 +525,7 @@ admin_preview_tasks = {}
 
 
 # =============================================================================
-# УВЕДОМЛЕНИЯ ПОЛЬЗОВАТЕЛЯМ
+# УВЕДОМЛЕНИЯ
 # =============================================================================
 async def notify_user_accept(user_id, slot=None):
     if not user_id:
@@ -826,7 +817,7 @@ async def admin_preview_cb(query: CallbackQuery, state: FSMContext):
 
 
 # =============================================================================
-# ГЛАВНОЕ МЕНЮ АДМИНА
+# ГЛАВНОЕ МЕНЮ
 # =============================================================================
 @router.callback_query(F.data.startswith("m:"))
 async def admin_menu_cb(query: CallbackQuery):
@@ -1088,7 +1079,7 @@ async def view_post_cb(query: CallbackQuery):
 
 
 # =============================================================================
-# УДАЛЕНИЕ ПОСТА С ПОДТВЕРЖДЕНИЕМ
+# УДАЛЕНИЕ
 # =============================================================================
 @router.callback_query(F.data.startswith("confirm_del:"))
 async def confirm_del_cb(query: CallbackQuery):
@@ -1177,7 +1168,7 @@ async def del_no_cb(query: CallbackQuery):
 
 
 # =============================================================================
-# ПЕРЕНОС ПОСТА
+# ПЕРЕНОС
 # =============================================================================
 @router.callback_query(F.data.startswith("move_next:"))
 async def move_next_cb(query: CallbackQuery):
@@ -1323,7 +1314,7 @@ async def process_move_date(message: Message, state: FSMContext):
 
 
 # =============================================================================
-# ИСТОРИЯ ПРЕДЛОЖКИ
+# ИСТОРИЯ
 # =============================================================================
 @router.callback_query(F.data.startswith("hist:"))
 async def history_cb(query: CallbackQuery):
@@ -1461,7 +1452,7 @@ async def noop_cb(query: CallbackQuery):
 
 
 # =============================================================================
-# ПОЛЬЗОВАТЕЛЬСКАЯ ПРЕДЛОЖКА
+# ПРЕДЛОЖКА ПОЛЬЗОВАТЕЛЯ
 # =============================================================================
 @router.callback_query(F.data.startswith("u:"))
 async def user_cb(query: CallbackQuery, state: FSMContext):
@@ -1585,7 +1576,7 @@ async def user_cb(query: CallbackQuery, state: FSMContext):
 
 
 # =============================================================================
-# РЕВЬЮ ПРЕДЛОЖКИ
+# РЕВЬЮ
 # =============================================================================
 @router.callback_query(F.data.startswith("r:"))
 async def review_cb(query: CallbackQuery):
@@ -2024,7 +2015,7 @@ async def publisher_loop():
 
 
 # =============================================================================
-# ЛОВУШКА ДЛЯ СТАРЫХ/НЕИЗВЕСТНЫХ КНОПОК
+# ЛОВУШКА ДЛЯ СТАРЫХ КНОПОК
 # =============================================================================
 @router.callback_query()
 async def unknown_callback(query: CallbackQuery):
